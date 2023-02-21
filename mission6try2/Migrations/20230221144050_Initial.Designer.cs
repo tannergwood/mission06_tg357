@@ -8,7 +8,7 @@ using mission6try2.Models;
 namespace mission6try2.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20230213155340_Initial")]
+    [Migration("20230221144050_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -17,15 +17,71 @@ namespace mission6try2.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.32");
 
+            modelBuilder.Entity("mission6try2.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryID");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryID = 1,
+                            CategoryName = "Action/Adventure"
+                        },
+                        new
+                        {
+                            CategoryID = 2,
+                            CategoryName = "Comedy"
+                        },
+                        new
+                        {
+                            CategoryID = 3,
+                            CategoryName = "Drama"
+                        },
+                        new
+                        {
+                            CategoryID = 4,
+                            CategoryName = "Family"
+                        },
+                        new
+                        {
+                            CategoryID = 5,
+                            CategoryName = "Horror/Suspense"
+                        },
+                        new
+                        {
+                            CategoryID = 6,
+                            CategoryName = "Miscellaneous"
+                        },
+                        new
+                        {
+                            CategoryID = 7,
+                            CategoryName = "Television"
+                        },
+                        new
+                        {
+                            CategoryID = 8,
+                            CategoryName = "VHS"
+                        });
+                });
+
             modelBuilder.Entity("mission6try2.Models.MovieInput", b =>
                 {
                     b.Property<int>("MovieID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -54,13 +110,15 @@ namespace mission6try2.Migrations
 
                     b.HasKey("MovieID");
 
+                    b.HasIndex("CategoryID");
+
                     b.ToTable("Movies");
 
                     b.HasData(
                         new
                         {
                             MovieID = 1,
-                            Category = "Family",
+                            CategoryID = 4,
                             Director = "David Mickey Evans",
                             Edited = false,
                             LentTo = "",
@@ -72,7 +130,7 @@ namespace mission6try2.Migrations
                         new
                         {
                             MovieID = 2,
-                            Category = "Comedy",
+                            CategoryID = 2,
                             Director = "Jon Turteltaub",
                             Edited = false,
                             LentTo = "",
@@ -84,7 +142,7 @@ namespace mission6try2.Migrations
                         new
                         {
                             MovieID = 3,
-                            Category = "Drama",
+                            CategoryID = 3,
                             Director = "Brian Helgeland",
                             Edited = false,
                             LentTo = "",
@@ -93,6 +151,15 @@ namespace mission6try2.Migrations
                             Title = "42",
                             Year = 2013
                         });
+                });
+
+            modelBuilder.Entity("mission6try2.Models.MovieInput", b =>
+                {
+                    b.HasOne("mission6try2.Models.Category", "CategoryName")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

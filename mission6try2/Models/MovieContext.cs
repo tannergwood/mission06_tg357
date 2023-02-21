@@ -15,15 +15,60 @@ namespace mission6try2.Models
 
         public DbSet<MovieInput> Movies { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
         protected override void OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Category>().HasData(
+                new Category
+                {
+                    CategoryID = 1,
+                    CategoryName = "Action/Adventure"
+                },
+                new Category
+                {
+                    CategoryID = 2,
+                    CategoryName = "Comedy"
+                },
+                new Category
+                {
+                    CategoryID = 3,
+                    CategoryName = "Drama"
+                },
+                new Category
+                {
+                    CategoryID = 4,
+                    CategoryName = "Family"
+                },
+                new Category
+                {
+                    CategoryID = 5,
+                    CategoryName = "Horror/Suspense"
+                },
+                new Category
+                {
+                    CategoryID = 6,
+                    CategoryName = "Miscellaneous"
+                },
+                new Category
+                {
+                    CategoryID = 7,
+                    CategoryName = "Television"
+                },
+                new Category
+                {
+                    CategoryID = 8,
+                    CategoryName = "VHS"
+                }
+                );
+
             mb.Entity<MovieInput>().HasData(
                 
                 new MovieInput
                 {
                     MovieID = 1,
                     Title = "The Sandlot",
-                    Category = "Family",
+                    CategoryID = 4,
                     Year = 1993,
                     Director = "David Mickey Evans",
                     Rating = "PG", 
@@ -35,7 +80,7 @@ namespace mission6try2.Models
                 {
                     MovieID = 2,
                     Title = "Cool Runnings",
-                    Category = "Comedy",
+                    CategoryID = 2,
                     Year = 1993,
                     Director = "Jon Turteltaub",
                     Rating = "PG",
@@ -47,7 +92,7 @@ namespace mission6try2.Models
                 {
                     MovieID = 3,
                     Title = "42",
-                    Category = "Drama",
+                    CategoryID = 3,
                     Year = 2013,
                     Director = "Brian Helgeland",
                     Rating = "PG-13",

@@ -15,10 +15,10 @@ namespace mission6try2.Models
         [Required]
         public string Title { get; set; }
 
-        [Required]
-        public string Category { get; set; }
+
 
         [Required]
+        [Range(1800,3000)]
         public int Year { get; set; }
 
         [Required]
@@ -33,5 +33,11 @@ namespace mission6try2.Models
 
         [StringLength(25)]
         public string Notes { get; set; }
+
+        //Build the Foreign Key Relationship
+        [Required]
+        public int CategoryID { get; set; }
+
+        public Category category { get; set; }
     }
 }
